@@ -1,0 +1,115 @@
+{"bsonType": "object",
+"required": [
+   "name",
+   "email"
+],
+"properties": {
+   "name": {
+      "bsonType": "string",
+      "description": "must be a string and is required"
+   },
+   "email": {
+      "bsonType": "string",
+      "description": "must be a string and is required"
+   },
+   "orders": {
+      "bsonType": "array",
+      "description": "must be an array of objectIds if the field exists",
+      "items": {
+         "bsonType": "objectId",
+         "description": "must be an objectId within the orders collection "
+      }
+   },
+   "shipping_addresses": {
+      "bsonType": "array",
+      "description": "must be an array of objects if the field exists",
+      "items": {
+         "bsonType": "object",
+         "required": [
+            "first_name",
+            "street_address1",
+            "street_address2",
+            "city",
+            "postcode",
+            "country",
+            "state"
+         ],
+         "properties": {
+            "first_name": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "last_name": {
+               "bsonType": "string",
+               "description": "must be a string if it exists"
+            },
+            "street": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "city": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "postcode": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "country": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "state": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            }
+         }
+      }
+   },
+   "billing_addresses": {
+      "bsonType": "array",
+      "description": "must be an array of objects if the field exists",
+      "items": {
+         "bsonType": "object",
+         "required": [
+            "first_name",
+            "street_address1",
+            "street_address2",
+            "city",
+            "postcode",
+            "country",
+            "state",
+         ],
+         "properties": {
+            "first_name": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "last_name": {
+               "bsonType": "string",
+               "description": "must be a string if it exists"
+            },
+            "street": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "city": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "postcode": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "country": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            },
+            "state": {
+               "bsonType": "string",
+               "description": "must be a string and is required"
+            }
+         }
+      }
+   },
+}}

@@ -1,0 +1,60 @@
+{
+    "bsonType": "object",
+    "required": [
+        "title",
+        "img",
+        "desc",
+        "price",
+        "tags"
+    ],
+    "properties": {
+        "title": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "img": {
+            "bsonType": "string",
+            "description": "must be a url and is required"
+        },
+        "desc": {
+            "bsonType": "string",
+            "description": "must be a string and is required"
+        },
+        "price": {
+            "bsonType": "double",
+            "description": "must be a double and is required"
+        },
+        "tags": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "string",
+                "uniqueItems": true
+            }
+        },
+        "comments": {
+            "bsonType": "object",
+            "required": [
+                "stars",
+                "header",
+                "desc",
+                "reviewer_id"
+            ],
+            "stars": {
+                "bsonType": "int",
+                "description": "must be an int and is required"
+            },
+            "header": {
+                "bsonType": "string",
+                "description": "must be a string and is required"
+            },
+            "desc": {
+                "bsonType": "string",
+                "description": "must be a string and is required"
+            },
+            "reviewer_id": {
+                "bsonType": "objectId",
+                "description": "must be an objectId from the users collection and is required"
+            }
+        }
+    }
+}
