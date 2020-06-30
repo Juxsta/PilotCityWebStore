@@ -1,0 +1,61 @@
+{
+    "title": "orders",
+    "required": [
+        "customer_id",
+        "product_id",
+        "datePlaced",
+        "shippingStatus",
+        "shippingAddress"
+    ],
+    "properties": {
+         "_id": {
+      "bsonType": "objectId"
+    },
+        "customer_id": {
+            "bsonType": "objectId",
+            "description": "must be an objectId relating to the users collection and is required"
+        },
+        "product_id": {
+            "bsonType": "objectId",
+            "description": "must be an objectId relating to the products collection and is required"
+        },
+        "datePlaced": {
+            "bsonType": "date",
+            "description": "must be a string and is required"
+        },
+        "shippingStatus": {
+            "bsonType": "string",
+            "description": "must be a string and is required",
+            "enum":["pending","shipped"]
+        },
+        "shippingAddress": {
+            "bsonType": "object",
+            "description": "must be a valid address and is required",
+            "required": [
+                "street",
+                "city",
+                "state",
+                "zipCode"
+            ],
+            "properties":{
+                "street": {
+                    "bsonType": "string",
+                    "description": "must be a valid string and is required"
+                },
+                "city": {
+                    "bsonType": "string",
+                    "description": "must be a valid city and is required"
+                },
+                "state": {
+                    "bsonType": "string",
+                    "description": "must be a valid state/province and is required"
+                },
+                "zipCode": {
+                    "bsonType": "string",
+                    "description": "must be a valid zip code and is required"
+                }
+            }
+        }
+        
+    }
+}

@@ -1,5 +1,5 @@
 {
-    "bsonType": "object",
+    "title": "products",
     "required": [
         "title",
         "img",
@@ -8,6 +8,9 @@
         "tags"
     ],
     "properties": {
+        "_id": {
+            "bsonType": "objectId"
+          },
         "title": {
             "bsonType": "string",
             "description": "must be a string and is required"
@@ -32,28 +35,34 @@
             }
         },
         "comments": {
-            "bsonType": "object",
-            "required": [
-                "stars",
-                "header",
-                "desc",
-                "reviewer_id"
-            ],
-            "stars": {
-                "bsonType": "int",
-                "description": "must be an int and is required"
-            },
-            "header": {
-                "bsonType": "string",
-                "description": "must be a string and is required"
-            },
-            "desc": {
-                "bsonType": "string",
-                "description": "must be a string and is required"
-            },
-            "reviewer_id": {
-                "bsonType": "objectId",
-                "description": "must be an objectId from the users collection and is required"
+            "bsonType": "array",
+            "description": "must be an array of comment objects",
+            "items": {
+                "bsonType": "object",
+                "required": [
+                    "stars",
+                    "header",
+                    "desc",
+                    "reviewer_id"
+                ],
+                "properties": {
+                    "stars": {
+                        "bsonType": "int",
+                        "description": "must be an int and is required"
+                    },
+                    "header": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "desc": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "reviewer_id": {
+                        "bsonType": "objectId",
+                        "description": "must be an objectId from the users collection and is required"
+                    }
+                }
             }
         }
     }
