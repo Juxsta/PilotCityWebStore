@@ -10,41 +10,28 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0889c6bc-6749-41aa-b530-ce9cb268a2aa%2FPilotcity_logo.png?table=block&id=168baf74-f958-4561-b3dc-90a50539b549&width=5120&cache=v2g"
           transition="scale-transition"
           width="40"
         />
 
-        <h2>PilotCity</h2>
+        <h2 class="ma-2">PilotCity</h2>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+    <v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
 
 export default Vue.extend({
   name: 'App',
 
   components: {
-    HelloWorld,
   },
 
   data: () => ({
