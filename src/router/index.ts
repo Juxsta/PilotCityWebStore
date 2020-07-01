@@ -1,14 +1,12 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect: { name: 'Shop' },
   },
   {
     path: '/about',
@@ -22,6 +20,11 @@ const routes: Array<RouteConfig> = [
     path: '/shop',
     name: 'Shop',
     component: () => import('@/views/Shop.vue'),
+  },
+  {
+    path: '/product/:product_id',
+    name: 'Product',
+    component: () => import('../views/Product.vue'),
   },
 ];
 
