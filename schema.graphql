@@ -1,0 +1,697 @@
+"""
+The `DateTime` scalar type represents a DateTime. The DateTime is serialized as an RFC 3339 quoted string
+"""
+scalar DateTime
+
+type DeleteManyPayload {
+  deletedCount: Int!
+}
+
+type InsertManyPayload {
+  insertedIds: [ObjectId]!
+}
+
+type Mutation {
+  deleteManyOrders(query: OrderQueryInput): DeleteManyPayload
+  deleteManyProducts(query: ProductQueryInput): DeleteManyPayload
+  deleteManyUsers(query: UserQueryInput): DeleteManyPayload
+  deleteOneOrder(query: OrderQueryInput!): Order
+  deleteOneProduct(query: ProductQueryInput!): Product
+  deleteOneUser(query: UserQueryInput!): User
+  insertManyOrders(data: [OrderInsertInput!]!): InsertManyPayload
+  insertManyProducts(data: [ProductInsertInput!]!): InsertManyPayload
+  insertManyUsers(data: [UserInsertInput!]!): InsertManyPayload
+  insertOneOrder(data: OrderInsertInput!): Order
+  insertOneProduct(data: ProductInsertInput!): Product
+  insertOneUser(data: UserInsertInput!): User
+  replaceOneOrder(query: OrderQueryInput, data: OrderInsertInput!): Order
+  replaceOneProduct(query: ProductQueryInput, data: ProductInsertInput!): Product
+  replaceOneUser(data: UserInsertInput!, query: UserQueryInput): User
+  updateManyOrders(query: OrderQueryInput, set: OrderUpdateInput!): UpdateManyPayload
+  updateManyProducts(query: ProductQueryInput, set: ProductUpdateInput!): UpdateManyPayload
+  updateManyUsers(query: UserQueryInput, set: UserUpdateInput!): UpdateManyPayload
+  updateOneOrder(query: OrderQueryInput, set: OrderUpdateInput!): Order
+  updateOneProduct(query: ProductQueryInput, set: ProductUpdateInput!): Product
+  updateOneUser(set: UserUpdateInput!, query: UserQueryInput): User
+  upsertOneOrder(query: OrderQueryInput, data: OrderInsertInput!): Order
+  upsertOneProduct(query: ProductQueryInput, data: ProductInsertInput!): Product
+  upsertOneUser(query: UserQueryInput, data: UserInsertInput!): User
+}
+
+scalar ObjectId
+
+type Order {
+  _id: ObjectId
+  customer_id: User!
+  datePlaced: DateTime!
+  product_id: Product!
+  shippingAddress: OrderShippingAddress
+  shippingStatus: OrderShippingStatus!
+}
+
+input OrderCustomer_idRelationInput {
+  create: UserInsertInput
+  link: ObjectId
+}
+
+input OrderInsertInput {
+  datePlaced: DateTime!
+  shippingStatus: OrderShippingStatus!
+  shippingAddress: OrderShippingAddressInsertInput
+  _id: ObjectId
+  customer_id: OrderCustomer_idRelationInput!
+  product_id: OrderProduct_idRelationInput!
+}
+
+input OrderProduct_idRelationInput {
+  create: ProductInsertInput
+  link: ObjectId
+}
+
+input OrderQueryInput {
+  customer_id: UserQueryInput
+  shippingStatus_nin: [OrderShippingStatus]
+  shippingStatus_in: [OrderShippingStatus]
+  shippingStatus_gte: OrderShippingStatus
+  datePlaced_nin: [DateTime]
+  shippingStatus_lt: OrderShippingStatus
+  datePlaced_gt: DateTime
+  datePlaced_in: [DateTime]
+  _id_lt: ObjectId
+  shippingStatus_ne: OrderShippingStatus
+  _id_nin: [ObjectId]
+  _id_gte: ObjectId
+  datePlaced: DateTime
+  product_id_exists: Boolean
+  _id_exists: Boolean
+  shippingStatus_exists: Boolean
+  _id_gt: ObjectId
+  OR: [OrderQueryInput!]
+  datePlaced_gte: DateTime
+  _id: ObjectId
+  shippingAddress: OrderShippingAddressQueryInput
+  shippingStatus_lte: OrderShippingStatus
+  _id_ne: ObjectId
+  _id_lte: ObjectId
+  datePlaced_exists: Boolean
+  shippingStatus_gt: OrderShippingStatus
+  customer_id_exists: Boolean
+  datePlaced_lte: DateTime
+  shippingStatus: OrderShippingStatus
+  AND: [OrderQueryInput!]
+  product_id: ProductQueryInput
+  datePlaced_lt: DateTime
+  _id_in: [ObjectId]
+  shippingAddress_exists: Boolean
+  datePlaced_ne: DateTime
+}
+
+type OrderShippingAddress {
+  city: String!
+  state: String!
+  street: String!
+  zipCode: String!
+}
+
+input OrderShippingAddressInsertInput {
+  zipCode: String!
+  street: String!
+  city: String!
+  state: String!
+}
+
+input OrderShippingAddressQueryInput {
+  state: String
+  state_in: [String]
+  street_ne: String
+  street_gte: String
+  zipCode_in: [String]
+  street_lte: String
+  city_lte: String
+  state_exists: Boolean
+  city_gt: String
+  zipCode: String
+  zipCode_gt: String
+  state_nin: [String]
+  city_lt: String
+  city_in: [String]
+  city_nin: [String]
+  state_gt: String
+  zipCode_lte: String
+  OR: [OrderShippingAddressQueryInput!]
+  city_gte: String
+  state_lt: String
+  street_nin: [String]
+  city_ne: String
+  state_ne: String
+  city: String
+  zipCode_exists: Boolean
+  AND: [OrderShippingAddressQueryInput!]
+  zipCode_lt: String
+  zipCode_gte: String
+  street_lt: String
+  city_exists: Boolean
+  state_gte: String
+  street_gt: String
+  street_exists: Boolean
+  zipCode_nin: [String]
+  state_lte: String
+  zipCode_ne: String
+  street_in: [String]
+  street: String
+}
+
+input OrderShippingAddressUpdateInput {
+  city_unset: Boolean
+  state: String
+  state_unset: Boolean
+  zipCode: String
+  zipCode_unset: Boolean
+  street: String
+  street_unset: Boolean
+  city: String
+}
+
+enum OrderShippingStatus {
+  PENDING
+  SHIPPED
+}
+
+enum OrderSortByInput {
+  SHIPPINGSTATUS_DESC
+  _ID_ASC
+  _ID_DESC
+  PRODUCT_ID_ASC
+  DATEPLACED_ASC
+  DATEPLACED_DESC
+  SHIPPINGSTATUS_ASC
+  CUSTOMER_ID_ASC
+  CUSTOMER_ID_DESC
+  PRODUCT_ID_DESC
+}
+
+input OrderUpdateInput {
+  _id: ObjectId
+  customer_id_unset: Boolean
+  shippingAddress_unset: Boolean
+  _id_unset: Boolean
+  product_id_unset: Boolean
+  shippingStatus: OrderShippingStatus
+  shippingStatus_unset: Boolean
+  product_id: OrderProduct_idRelationInput
+  datePlaced: DateTime
+  datePlaced_unset: Boolean
+  shippingAddress: OrderShippingAddressUpdateInput
+  customer_id: OrderCustomer_idRelationInput
+}
+
+type Product {
+  _id: ObjectId
+  comments: [ProductComment]
+  desc: String!
+  img: String!
+  price: Float!
+  tags: [String]
+  title: String!
+}
+
+type ProductComment {
+  desc: String!
+  header: String!
+  reviewer_id: ObjectId!
+  stars: Int!
+}
+
+input ProductCommentInsertInput {
+  header: String!
+  desc: String!
+  reviewer_id: ObjectId!
+  stars: Int!
+}
+
+input ProductCommentQueryInput {
+  desc_lt: String
+  header_exists: Boolean
+  stars_lte: Int
+  header_in: [String]
+  desc_gte: String
+  stars_ne: Int
+  reviewer_id_lte: ObjectId
+  reviewer_id_ne: ObjectId
+  reviewer_id_exists: Boolean
+  desc_ne: String
+  desc_lte: String
+  stars_exists: Boolean
+  reviewer_id_gt: ObjectId
+  OR: [ProductCommentQueryInput!]
+  header_gt: String
+  reviewer_id_gte: ObjectId
+  desc_nin: [String]
+  desc_in: [String]
+  header: String
+  stars_lt: Int
+  header_ne: String
+  header_nin: [String]
+  reviewer_id_nin: [ObjectId]
+  stars_in: [Int]
+  reviewer_id_in: [ObjectId]
+  header_lt: String
+  reviewer_id: ObjectId
+  stars_gte: Int
+  stars: Int
+  header_lte: String
+  header_gte: String
+  reviewer_id_lt: ObjectId
+  AND: [ProductCommentQueryInput!]
+  desc: String
+  desc_gt: String
+  desc_exists: Boolean
+  stars_nin: [Int]
+  stars_gt: Int
+}
+
+input ProductCommentUpdateInput {
+  header_unset: Boolean
+  stars_unset: Boolean
+  desc_unset: Boolean
+  reviewer_id_unset: Boolean
+  header: String
+  reviewer_id: ObjectId
+  stars: Int
+  stars_inc: Int
+  desc: String
+}
+
+input ProductInsertInput {
+  comments: [ProductCommentInsertInput]
+  _id: ObjectId
+  title: String!
+  img: String!
+  desc: String!
+  price: Float!
+  tags: [String]
+}
+
+input ProductQueryInput {
+  desc_lte: String
+  img_lt: String
+  tags_nin: [String]
+  _id_lt: ObjectId
+  _id_in: [ObjectId]
+  desc_gte: String
+  price_lte: Float
+  img_ne: String
+  img_gte: String
+  _id_gt: ObjectId
+  tags: [String]
+  desc_lt: String
+  desc_ne: String
+  title_exists: Boolean
+  price_gt: Float
+  title_gt: String
+  comments_nin: [ProductCommentQueryInput]
+  desc_exists: Boolean
+  AND: [ProductQueryInput!]
+  img_gt: String
+  comments_exists: Boolean
+  price_exists: Boolean
+  OR: [ProductQueryInput!]
+  tags_exists: Boolean
+  title: String
+  price_in: [Float]
+  img_lte: String
+  price: Float
+  img: String
+  title_nin: [String]
+  _id_ne: ObjectId
+  img_in: [String]
+  price_nin: [Float]
+  comments_in: [ProductCommentQueryInput]
+  _id_gte: ObjectId
+  price_ne: Float
+  _id: ObjectId
+  price_lt: Float
+  title_gte: String
+  desc_nin: [String]
+  price_gte: Float
+  _id_lte: ObjectId
+  desc_in: [String]
+  desc_gt: String
+  desc: String
+  title_lt: String
+  img_nin: [String]
+  _id_exists: Boolean
+  tags_in: [String]
+  img_exists: Boolean
+  _id_nin: [ObjectId]
+  title_lte: String
+  title_in: [String]
+  comments: [ProductCommentQueryInput]
+  title_ne: String
+}
+
+enum ProductSortByInput {
+  IMG_ASC
+  DESC_ASC
+  TITLE_DESC
+  IMG_DESC
+  DESC_DESC
+  PRICE_ASC
+  PRICE_DESC
+  _ID_ASC
+  _ID_DESC
+  TITLE_ASC
+}
+
+input ProductUpdateInput {
+  comments_unset: Boolean
+  desc_unset: Boolean
+  price_unset: Boolean
+  tags: [String]
+  img_unset: Boolean
+  _id: ObjectId
+  desc: String
+  title: String
+  comments: [ProductCommentUpdateInput]
+  _id_unset: Boolean
+  price: Float
+  price_inc: Float
+  img: String
+  title_unset: Boolean
+  tags_unset: Boolean
+}
+
+type Query {
+  order(query: OrderQueryInput): Order
+  orders(query: OrderQueryInput, limit: Int = 100, sortBy: OrderSortByInput): [Order]!
+  product(query: ProductQueryInput): Product
+  products(limit: Int = 100, sortBy: ProductSortByInput, query: ProductQueryInput): [Product]!
+  user(query: UserQueryInput): User
+  users(query: UserQueryInput, limit: Int = 100, sortBy: UserSortByInput): [User]!
+}
+
+type UpdateManyPayload {
+  matchedCount: Int!
+  modifiedCount: Int!
+}
+
+type User {
+  _id: ObjectId
+  billing_addresses: [UserBilling_address]
+  email: String!
+  name: String!
+  orders: [Order]
+  shipping_addresses: [UserShipping_address]
+}
+
+type UserBilling_address {
+  city: String!
+  country: String!
+  first_name: String!
+  last_name: String
+  postcode: String!
+  state: String!
+  street: String
+}
+
+input UserBilling_addressInsertInput {
+  state: String!
+  first_name: String!
+  last_name: String
+  street: String
+  city: String!
+  postcode: String!
+  country: String!
+}
+
+input UserBilling_addressQueryInput {
+  last_name_gt: String
+  last_name_in: [String]
+  street_nin: [String]
+  state_lte: String
+  country_lt: String
+  country_ne: String
+  first_name_gt: String
+  first_name_ne: String
+  city_lte: String
+  street_lt: String
+  state_nin: [String]
+  street_ne: String
+  last_name_gte: String
+  city: String
+  OR: [UserBilling_addressQueryInput!]
+  postcode_nin: [String]
+  state: String
+  postcode: String
+  AND: [UserBilling_addressQueryInput!]
+  first_name_lte: String
+  country_in: [String]
+  street: String
+  country_lte: String
+  country_gt: String
+  first_name_gte: String
+  first_name_exists: Boolean
+  city_lt: String
+  state_gt: String
+  state_lt: String
+  last_name_lte: String
+  state_ne: String
+  postcode_lte: String
+  street_exists: Boolean
+  postcode_gt: String
+  city_in: [String]
+  country_gte: String
+  first_name_lt: String
+  street_gte: String
+  postcode_in: [String]
+  country: String
+  state_in: [String]
+  street_in: [String]
+  postcode_lt: String
+  city_ne: String
+  last_name: String
+  last_name_lt: String
+  city_gte: String
+  state_gte: String
+  first_name_in: [String]
+  last_name_nin: [String]
+  city_gt: String
+  country_nin: [String]
+  state_exists: Boolean
+  city_exists: Boolean
+  postcode_gte: String
+  street_lte: String
+  country_exists: Boolean
+  street_gt: String
+  city_nin: [String]
+  postcode_exists: Boolean
+  last_name_exists: Boolean
+  first_name: String
+  last_name_ne: String
+  postcode_ne: String
+  first_name_nin: [String]
+}
+
+input UserBilling_addressUpdateInput {
+  first_name: String
+  country: String
+  street_unset: Boolean
+  state_unset: Boolean
+  last_name_unset: Boolean
+  country_unset: Boolean
+  city_unset: Boolean
+  postcode_unset: Boolean
+  first_name_unset: Boolean
+  street: String
+  city: String
+  state: String
+  last_name: String
+  postcode: String
+}
+
+input UserInsertInput {
+  orders: UserOrdersRelationInput
+  shipping_addresses: [UserShipping_addressInsertInput]
+  billing_addresses: [UserBilling_addressInsertInput]
+  _id: ObjectId
+  name: String!
+  email: String!
+}
+
+input UserOrdersRelationInput {
+  create: [OrderInsertInput]
+  link: [ObjectId]
+}
+
+input UserQueryInput {
+  email_nin: [String]
+  name_gte: String
+  billing_addresses_in: [UserBilling_addressQueryInput]
+  name: String
+  _id_ne: ObjectId
+  _id_gte: ObjectId
+  email_gte: String
+  billing_addresses_nin: [UserBilling_addressQueryInput]
+  name_in: [String]
+  orders_in: [OrderQueryInput]
+  name_lt: String
+  email_gt: String
+  orders: [OrderQueryInput]
+  _id_in: [ObjectId]
+  shipping_addresses_exists: Boolean
+  name_nin: [String]
+  _id: ObjectId
+  name_gt: String
+  OR: [UserQueryInput!]
+  shipping_addresses_nin: [UserShipping_addressQueryInput]
+  name_ne: String
+  orders_nin: [OrderQueryInput]
+  email_in: [String]
+  email_lte: String
+  AND: [UserQueryInput!]
+  email_ne: String
+  billing_addresses: [UserBilling_addressQueryInput]
+  _id_gt: ObjectId
+  email: String
+  shipping_addresses_in: [UserShipping_addressQueryInput]
+  orders_exists: Boolean
+  shipping_addresses: [UserShipping_addressQueryInput]
+  _id_nin: [ObjectId]
+  _id_lte: ObjectId
+  email_exists: Boolean
+  email_lt: String
+  _id_exists: Boolean
+  billing_addresses_exists: Boolean
+  name_exists: Boolean
+  name_lte: String
+  _id_lt: ObjectId
+}
+
+type UserShipping_address {
+  city: String!
+  country: String!
+  first_name: String!
+  last_name: String
+  postcode: String!
+  state: String!
+  street: String
+}
+
+input UserShipping_addressInsertInput {
+  state: String!
+  first_name: String!
+  last_name: String
+  street: String
+  city: String!
+  postcode: String!
+  country: String!
+}
+
+input UserShipping_addressQueryInput {
+  last_name_gt: String
+  city_lt: String
+  country_nin: [String]
+  first_name_exists: Boolean
+  last_name_in: [String]
+  country_in: [String]
+  first_name_lt: String
+  country_gte: String
+  street: String
+  state_ne: String
+  country_lte: String
+  city_lte: String
+  state_in: [String]
+  state_gt: String
+  first_name_gt: String
+  AND: [UserShipping_addressQueryInput!]
+  street_lte: String
+  first_name_nin: [String]
+  country_gt: String
+  postcode_exists: Boolean
+  street_exists: Boolean
+  state_exists: Boolean
+  postcode_ne: String
+  street_nin: [String]
+  city: String
+  last_name_nin: [String]
+  state_nin: [String]
+  city_gt: String
+  postcode_nin: [String]
+  street_gte: String
+  postcode_lte: String
+  country_exists: Boolean
+  state_lte: String
+  city_nin: [String]
+  OR: [UserShipping_addressQueryInput!]
+  last_name_ne: String
+  city_ne: String
+  street_lt: String
+  city_in: [String]
+  last_name_lt: String
+  city_exists: Boolean
+  first_name_gte: String
+  last_name_gte: String
+  first_name: String
+  state_gte: String
+  last_name_exists: Boolean
+  postcode_gte: String
+  last_name_lte: String
+  postcode_in: [String]
+  last_name: String
+  country_lt: String
+  state_lt: String
+  street_gt: String
+  postcode: String
+  state: String
+  street_in: [String]
+  country: String
+  street_ne: String
+  postcode_gt: String
+  first_name_ne: String
+  city_gte: String
+  postcode_lt: String
+  country_ne: String
+  first_name_lte: String
+  first_name_in: [String]
+}
+
+input UserShipping_addressUpdateInput {
+  country: String
+  postcode: String
+  last_name: String
+  city: String
+  country_unset: Boolean
+  postcode_unset: Boolean
+  street: String
+  first_name: String
+  first_name_unset: Boolean
+  street_unset: Boolean
+  city_unset: Boolean
+  state_unset: Boolean
+  last_name_unset: Boolean
+  state: String
+}
+
+enum UserSortByInput {
+  _ID_ASC
+  _ID_DESC
+  NAME_ASC
+  NAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+input UserUpdateInput {
+  _id: ObjectId
+  orders: UserOrdersRelationInput
+  orders_unset: Boolean
+  _id_unset: Boolean
+  email: String
+  email_unset: Boolean
+  name: String
+  name_unset: Boolean
+  shipping_addresses: [UserShipping_addressUpdateInput]
+  shipping_addresses_unset: Boolean
+  billing_addresses: [UserBilling_addressUpdateInput]
+  billing_addresses_unset: Boolean
+}
