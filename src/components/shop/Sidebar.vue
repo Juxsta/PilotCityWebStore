@@ -64,9 +64,7 @@ export default Vue.extend({
   }),
   computed: {
     size() {
-      let size = '';
-      size = this.$vuetify.breakpoint.name;
-      return size;
+      return this.$vuetify.breakpoint.name;
     },
   },
 });
